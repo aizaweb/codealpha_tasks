@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aiza Siddiqui | Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#efbe7b",
+                      "on-primary-fixed": "#3f0017",
+                      "on-tertiary-fixed": "#1f1b13",
+                      "on-secondary-fixed-variant": "#614006",
+                      "surface-dim": "#191119",
+                      "secondary": "#efbe7b",
+                      "surface-variant": "#3c323b",
+                      "inverse-primary": "#a03b57",
+                      "on-tertiary-fixed-variant": "#4c463d",
+                      "surface-container": "#261d25",
+                      "secondary-container": "#614006",
+                      "on-error-container": "#ffdad6",
+                      "tertiary": "#cec5b9",
+                      "on-tertiary": "#353027",
+                      "on-surface-variant": "#dbc0c4",
+                      "tertiary-fixed-dim": "#cec5b9",
+                      "background": "#191119",
+                      "primary-fixed": "#ffd9df",
+                      "on-surface": "#eedeea",
+                      "surface-container-highest": "#3c323b",
+                      "on-primary-fixed-variant": "#81233f",
+                      "on-secondary-fixed": "#291800",
+                      "surface-bright": "#40363f",
+                      "outline-variant": "#554245",
+                      "surface-container-lowest": "#140b14",
+                      "inverse-on-surface": "#372d36",
+                      "error-container": "#93000a",
+                      "surface": "#191119",
+                      "outline": "#a38b8e",
+                      "on-secondary-container": "#dcad6b",
+                      "secondary-fixed": "#ffddb2",
+                      "on-background": "#eedeea",
+                      "on-primary-container": "#ff8ca6",
+                      "surface-container-high": "#312730",
+                      "surface-container-low": "#221921",
+                      "on-primary": "#63082a",
+                      "surface-tint": "#ffb1c0",
+                      "tertiary-fixed": "#ebe1d4",
+                      "on-tertiary-container": "#b6ada1",
+                      "primary-fixed-dim": "#ffb1c0",
+                      "inverse-surface": "#eedeea",
+                      "tertiary-container": "#474138",
+                      "error": "#ffb4ab",
+                      "on-secondary": "#452b00",
+                      "primary-container": "#7b1e3b",
+                      "primary": "#ffb1c0",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "120px",
+                      "container-max": "1200px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Playfair Display"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "display-lg-mobile": ["Playfair Display"],
+                      "headline-sm": ["Playfair Display"],
+                      "button": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "button": ["15px", {"lineHeight": "20px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(29, 15, 24, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(238, 222, 234, 0.1);
+        }
+        .bordeaux-gold-gradient {
+            background: linear-gradient(135deg, #7b1e3b 0%, #efbe7b 100%);
+        }
+        .bordeaux-gold-gradient:hover {
+            box-shadow: 0 0 30px rgba(123, 30, 59, 0.4);
+        }
+        .luxury-glow {
+            box-shadow: 0px 20px 40px rgba(123, 30, 59, 0.15);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        html { scroll-behavior: smooth; }
+
+        /* Animation Keyframes */
+        @keyframes float-slow {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(20px, -30px) rotate(5deg); }
+            66% { transform: translate(-10px, 15px) rotate(-3deg); }
+        }
+        @keyframes drift {
+            0% { transform: translateX(-10%) translateY(0); }
+            50% { transform: translateX(10%) translateY(-5%); }
+            100% { transform: translateX(-10%) translateY(0); }
+        }
+        @keyframes mesh-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.1); }
+        }
+
+        .anim-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+        
+        /* Flowing Lines SVG style */
+        .flowing-lines path {
+            fill: none;
+            stroke: #7b1e3b;
+            stroke-width: 1;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 10s linear infinite forwards;
+            opacity: 0.15;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            gap: 0;
+            cursor: grab;
+        }
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-track:active {
+            cursor: grabbing;
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            width: 100%;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(238, 222, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            background: #ffb1c0;
+            width: 16px;
+            border-radius: 3px;
+        }
+    </style>
+<style>
+        body { min-height: max(884px, 100dvh); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-white">
+<header class="fixed top-0 w-full z-50 bg-surface-container/60 dark:bg-surface-container/60 backdrop-blur-[30px] border-b border-on-surface/5 shadow-[0px_20px_40px_rgba(123,30,59,0.1)]">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-on-surface dark:text-on-surface uppercase">AIZA SIDDIQUI</h1>
+</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md hover:text-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105" href="#home">HOME</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105" href="#about">ABOUT</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105" href="#skills">SKILLS</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105" href="#projects">PROJECTS</a>
+<a class="px-6 py-2 bordeaux-gold-gradient text-white rounded-full font-button text-button transition-transform active:scale-95 duration-200" href="#contact">HAVE A CHAT</a>
+</nav>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="relative">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden px-margin-mobile md:px-margin-desktop" id="home">
+<div class="absolute inset-0 w-full h-full bg-transparent pointer-events-none -z-10" id="threejs-container-hero-globe"></div>
+<div class="text-center max-w-4xl relative z-10 space-y-8">
+<div class="space-y-4">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface reveal">
+                    Hi, I'm <span class="text-primary italic">Aiza Siddiqui</span>
+</h2>
+<p class="font-headline-sm text-headline-sm text-secondary-fixed-dim typing-cursor h-8" id="typing-text"></p>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant/80 max-w-2xl mx-auto leading-relaxed reveal">
+                I create modern, responsive and visually appealing websites that blend technical precision with artistic flair. Specializing in high-end frontend experiences that leave lasting impressions.
+            </p>
+<div class="flex flex-col md:flex-row gap-gutter justify-center items-center pt-8 reveal">
+<button class="bordeaux-gold-gradient px-10 py-4 rounded-full text-white font-button text-button luxury-glow transition-all duration-300 hover:scale-105 active:scale-95">
+                    Download Resume
+                </button>
+<a class="border border-secondary px-10 py-4 rounded-full text-secondary font-button text-button transition-all duration-300 hover:bg-secondary/10 active:scale-95" href="#contact">
+                    Contact Me
+                </a>
+<a class="border border-primary px-10 py-4 rounded-full text-primary font-button text-button transition-all duration-300 hover:bg-primary/10 active:scale-95 flex items-center gap-2" href="https://www.linkedin.com/in/aiza-siddiqui-8200863b7" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined">share</span>
+                    LinkedIn
+                </a>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="relative py-section-gap px-margin-mobile md:px-margin-desktop reveal" id="about">
+<div class="anim-container">
+<svg class="flowing-lines w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M-10,30 Q25,10 50,30 T110,30" style="animation-delay: 0s"></path>
+<path d="M-10,50 Q25,30 50,50 T110,50" style="animation-delay: -2s; stroke: #efbe7b;"></path>
+<path d="M-10,70 Q25,50 50,70 T110,70" style="animation-delay: -4s"></path>
+</svg>
+</div>
+<div class="max-w-container-max mx-auto">
+<div class="max-w-3xl mx-auto space-y-6">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Overview</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">About Me</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    I am a dedicated Computer Science student with an unyielding passion for frontend engineering. My journey began with a curiosity for how the web functions, which evolved into a professional pursuit of crafting pixel-perfect, responsive digital interfaces.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant/80 leading-relaxed">
+                    Beyond code, I focus on the 'Why' behind every design decision. I believe that a website is a brand's most critical handshake, and it should be as fluid as it is functional. Currently exploring the intersection of modern JS frameworks and high-end UI aesthetics.
+                </p>
+<div class="grid grid-cols-2 gap-4 pt-4">
+<div class="p-4 glass-card rounded-2xl">
+<h4 class="text-primary font-bold text-headline-sm">CS</h4>
+<p class="text-on-surface-variant font-label-md">Student</p>
+</div>
+<div class="p-4 glass-card rounded-2xl">
+<h4 class="text-primary font-bold text-headline-sm">Frontend</h4>
+<p class="text-on-surface-variant font-label-md">Specialist</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="relative py-section-gap bg-surface-container-low/30" id="skills">
+<div class="anim-container">
+<div class="absolute w-24 h-24 border border-primary/10 rounded-lg rotate-45" style="top: 10%; left: 10%; animation: float-slow 15s infinite ease-in-out;"></div>
+<div class="absolute w-16 h-16 border border-secondary/10 rounded-full" style="top: 40%; right: 5%; animation: float-slow 12s infinite ease-in-out reverse;"></div>
+<div class="absolute w-20 h-20 border border-primary/5 rounded-lg -rotate-12" style="bottom: 15%; left: 20%; animation: float-slow 18s infinite ease-in-out;"></div>
+<div class="absolute w-1 h-1 bg-primary/20 rounded-full" style="top: 20%; left: 50%; animation: pulse-soft 3s infinite;"></div>
+<div class="absolute w-1 h-1 bg-secondary/20 rounded-full" style="top: 80%; left: 30%; animation: pulse-soft 4s infinite 1s;"></div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center space-y-4 mb-16 reveal">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Expertise</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">My Tech Stack</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter reveal">
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">html</span>
+</div>
+<span class="font-headline-sm text-on-surface">95%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">HTML5</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="95%"></div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">css</span>
+</div>
+<span class="font-headline-sm text-on-surface">90%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">CSS3 / Tailwind</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="90%"></div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">javascript</span>
+</div>
+<span class="font-headline-sm text-on-surface">85%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">JavaScript</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="85%"></div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">design_services</span>
+</div>
+<span class="font-headline-sm text-on-surface">80%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">UI/UX Design</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="80%"></div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">code</span>
+</div>
+<span class="font-headline-sm text-on-surface">65%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">Python (Basics)</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="65%"></div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 bordeaux-gold-gradient rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">responsive_layout</span>
+</div>
+<span class="font-headline-sm text-on-surface">98%</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-4">Responsive Design</h3>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="skill-bar h-full bordeaux-gold-gradient w-0 transition-all duration-1000 ease-out" data-target="98%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="relative py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="projects">
+<div class="anim-container">
+<div class="absolute w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full" style="top: -10%; left: -10%; animation: drift 20s infinite ease-in-out;"></div>
+<div class="absolute w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full" style="bottom: -10%; right: -10%; animation: drift 15s infinite ease-in-out reverse;"></div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal">
+<div class="space-y-4">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Portfolio</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Selected Work</h2>
+</div>
+<p class="text-on-surface-variant font-body-md max-w-md text-left md:text-right">
+                A focused showcase of my featured work, blending technical excellence with immersive luxury aesthetics.
+            </p>
+</div>
+<div class="flex justify-center">
+<!-- Project Card 1: Luxury Restaurant Website -->
+<div class="group reveal max-w-3xl w-full" style="transition-delay: 100ms;">
+<div class="glass-card rounded-[2rem] overflow-hidden p-4 space-y-6 transition-transform duration-500 hover:border-primary/20">
+<div class="carousel-container relative">
+<div class="carousel-track rounded-2xl" data-carousel-id="project1">
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Project 1 Hero" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ3IF-iJ2SJKDG6Td_UUlN0hFt_i0Lsjfb_3Mmwvf-pQDHmgXYQJV3YQieaDV8A4kXEjLlK8uFCSB588Jh9hCDFpn_Qb1UHnQF2KCyDtDqr8e94U_Hi1js6PTMkJ3SBYGtn7J7_xrjAkQ1NX3613-qyoUvl8-43Kf0O1Ewp6-btleifrPwzKtyghgUeauqTfEOsy5U4qVsivkGjXWVweiNJphvTRpY3X68k6UTA02tr-lufmF_xcN15Bw_7Pl1iyFe62FwdipUXd1i"/>
+</div>
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Restaurant View 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR2W5f12K_dAKAYs_0Lf5GmzghZiJCUhrm_WmjAavON4hXsVikMDOot6kCgN3Tsll3zqc7zhxkMbVeNf3KFqCGrPBTh7j_9WIfj71CHI5ik1kXdjsvGROHlsMUvxGbyRmW69hupy1piWUUa_NU5Dej-UcAWOSaPMcj4TJi8nvBJkKO3T8zrkqotiNBtADQLheHd63Pv_2PM-ceLhgR-P0uu_4DVgeOFj2b7Sqyj02Gn6pzM6iku5b56Ghb8nKBWx1S5pvHg2pSDRnf"/>
+</div>
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Restaurant View 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8yaCrr1lRgA8WA0SHTNPZaEmdQ8bl8vI5l1ww30MUeZBVW7ANuA_Y2UJBWWLlTTTXPVTN_1YFRn1SeLPkeNQaV_sW4htcPwI9hb0zVZr-PTQ7804MnOPS4q0nfGxONJD_M04-JEk8dBMpyEQQjp4hP0M6sPqQo8RFZpaD11dNr2uYHZnZw0IcMTl--VdHNOm7ek-kappJTGybcfJlTsZSu3MZPSEWO7JkujvgTahE2RO6TlB3mkM7NOvfEPnKS6dF7xPBka1aIT-f"/>
+</div>
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Restaurant View 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALYd8gjFb7GA9ilyq1iJA8pLJWU52z1HmDeAA35hR15rjoOIFED73wFnyNdLyjcCg-GKAz71D3qBQ1psJE4NA2ufYY4PRj1DDTnmoYolSxnuI_6Q5dekoffrHDktV-ci-_ADcKTjvRfTzQWSrIc0L8kXQgpRzBinWugr_pQbwfdVTUrWOX1tMV8zBW8sROE70cMQTDJ0-YXbzWTqqUP8EtVQh-H_T_rnlDcDnlzwbmlBAitPItIDCKNJlhm5pJbwz3fkLrmZ-Qsdk4"/>
+</div>
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Restaurant View 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHc23jnk-T0u5HOcO_R722E0rPN98PqvezAqI-kG4QywQh_OMyQhCmXCGr42HbX45famiqtjqoN3n6Sq47GLtwsaDB-kQ7Gw8HU6TcZD8ut0oGj_NCyL1tKHCFBWd7ASwfJMrpELQ21AKuC1JUDeLm9aggxlYNT4g9OjeKEwI104K8IVr1WU7LsuTLVFGDeyKDAtyVUlyU7xD8rTFulrcv7EjQ8tjIOd6_abJIp32g0vEJNooJzk_KBlkB73CpQmHU-wzBf64Sd1gu"/>
+</div>
+<div class="carousel-slide relative aspect-video md:aspect-[16/9]">
+<img alt="Restaurant View 5" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9GfItZgH1n2gXo-Vq4vBU9Ekel0Vjn3ZyPpu6jaXGuSDDweywHqdRmZzl-_bjgOF949ZXKvDVwsv6Clq46OmntRKfeIJDvf6_EpkFYPuHExh4aJPctc_6m9AS7FllSsqaWdleBvGp-EA731hASCEV274zSxGekSjexpFhSMFObfkt1kNC_3H8Bpp3k7xZyq-5V0yruMyz_YvTKKtdrjGS-AqPdLLA0ewT4bhIo8xHW_XZpt9V287Numb1s63i9DB5BMNuHtKGIDXe"/>
+</div>
+</div>
+<div class="flex justify-center gap-2 mt-6 dot-container" data-carousel-id="project1">
+<div class="dot active"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<h3 class="font-headline-sm text-on-surface mb-2 text-2xl">Luxury Restaurant Website</h3>
+<p class="text-on-surface-variant font-body-md mb-6 leading-relaxed">Fine dining experience redefined through a seamless, immersive digital interface. Designed with performance and luxury aesthetics at its core.</p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-1.5 bg-primary-container/20 border border-primary-container/30 text-primary text-label-md rounded-full">React</span>
+<span class="px-4 py-1.5 bg-primary-container/20 border border-primary-container/30 text-primary text-label-md rounded-full">Tailwind</span>
+<span class="px-4 py-1.5 bg-primary-container/20 border border-primary-container/30 text-primary text-label-md rounded-full">Three.js</span>
+<span class="px-4 py-1.5 bg-primary-container/20 border border-primary-container/30 text-primary text-label-md rounded-full">Framer Motion</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Achievements Section -->
+<section class="relative py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal">
+<div class="anim-container">
+<svg class="w-full h-full" style="opacity: 0.1;">
+<line stroke="#7b1e3b" stroke-width="0.5" x1="10%" x2="30%" y1="20%" y2="50%"></line>
+<line stroke="#efbe7b" stroke-width="0.5" x1="30%" x2="50%" y1="50%" y2="10%"></line>
+<line stroke="#7b1e3b" stroke-width="0.5" x1="50%" x2="80%" y1="10%" y2="40%"></line>
+<circle cx="10%" cy="20%" fill="#7b1e3b" r="2" style="animation: pulse-soft 4s infinite;"></circle>
+<circle cx="30%" cy="50%" fill="#efbe7b" r="2" style="animation: pulse-soft 4s infinite 1s;"></circle>
+<circle cx="50%" cy="10%" fill="#7b1e3b" r="2" style="animation: pulse-soft 4s infinite 2s;"></circle>
+<circle cx="80%" cy="40%" fill="#efbe7b" r="2" style="animation: pulse-soft 4s infinite 3s;"></circle>
+</svg>
+</div>
+<div class="text-center space-y-4 mb-16">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Recognition</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Achievements</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-card p-6 rounded-2xl text-center border-b-4 border-primary">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<h4 class="font-headline-sm text-on-surface text-lg">CS Student</h4>
+<p class="text-on-surface-variant font-body-md text-sm mt-2">Dedicated Academic Path</p>
+</div>
+<div class="glass-card p-6 rounded-2xl text-center border-b-4 border-secondary">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4" data-icon="rocket_launch" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<h4 class="font-headline-sm text-on-surface text-lg">Frontend Learning</h4>
+<p class="text-on-surface-variant font-body-md text-sm mt-2">Continuous Skill Growth</p>
+</div>
+<div class="glass-card p-6 rounded-2xl text-center border-b-4 border-primary">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<h4 class="font-headline-sm text-on-surface text-lg">UI Excellence</h4>
+<p class="text-on-surface-variant font-body-md text-sm mt-2">Design Focus Recognition</p>
+</div>
+<div class="glass-card p-6 rounded-2xl text-center border-b-4 border-secondary">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<h4 class="font-headline-sm text-on-surface text-lg">Community</h4>
+<p class="text-on-surface-variant font-body-md text-sm mt-2">Open Source Contributor</p>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="relative py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal" id="contact">
+<div class="anim-container" style="background: linear-gradient(135deg, rgba(25, 17, 25, 0) 0%, rgba(123, 30, 59, 0.05) 50%, rgba(239, 190, 123, 0.05) 100%); background-size: 400% 400%; animation: mesh-move 15s infinite ease-in-out;">
+<div class="absolute w-2 h-2 bg-white/20 rounded-full" style="top: 10%; left: 80%; animation: pulse-soft 5s infinite;"></div>
+<div class="absolute w-1 h-1 bg-white/10 rounded-full" style="top: 60%; left: 20%; animation: pulse-soft 3s infinite 2s;"></div>
+</div>
+<div class="glass-card rounded-[3rem] p-8 md:p-16 flex flex-col lg:flex-row gap-16 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bordeaux-gold-gradient blur-[120px] opacity-10 pointer-events-none"></div>
+<div class="lg:w-1/2 space-y-8">
+<div class="space-y-4">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Connection</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Let's Work Together</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Have a project in mind or just want to say hi? My inbox is always open. Let’s create something extraordinary together.
+                    </p>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-6 group">
+<div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md">Email Me</p>
+<a class="text-on-surface font-headline-sm text-lg hover:text-primary transition-colors" href="mailto:aizasiddiqui469@gmail.com">aizasiddiqui469@gmail.com</a>
+</div>
+</div>
+<div class="flex items-center gap-6 group">
+<div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md">Call Me</p>
+<a class="text-on-surface font-headline-sm text-lg hover:text-primary transition-colors" href="tel:7879261556">+91 7879261556</a>
+</div>
+</div>
+<div class="flex items-center gap-6 group">
+<div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md">LinkedIn</p>
+<a class="text-on-surface font-headline-sm text-lg hover:text-primary transition-colors" href="https://www.linkedin.com/in/aiza-siddiqui-8200863b7" rel="noopener noreferrer" target="_blank">Aiza Siddiqui</a>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2">
+<form class="space-y-6 bg-surface-container-high/40 p-8 rounded-3xl border border-on-surface/5" id="contactForm">
+<div class="space-y-2">
+<label class="text-on-surface font-label-md ml-1">Full Name</label>
+<input class="w-full bg-surface-container-lowest/50 border-none rounded-xl focus:ring-2 focus:ring-primary text-on-surface p-4 transition-all" placeholder="Enter your name" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-on-surface font-label-md ml-1">Email Address</label>
+<input class="w-full bg-surface-container-lowest/50 border-none rounded-xl focus:ring-2 focus:ring-primary text-on-surface p-4 transition-all" placeholder="Enter your email" required="" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="text-on-surface font-label-md ml-1">Your Message</label>
+<textarea class="w-full bg-surface-container-lowest/50 border-none rounded-xl focus:ring-2 focus:ring-primary text-on-surface p-4 transition-all" placeholder="How can I help you?" required="" rows="4"></textarea>
+</div>
+<button class="w-full bordeaux-gold-gradient py-4 rounded-xl text-white font-button text-button shadow-xl hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                        Send Message
+                    </button>
+<p class="hidden text-center font-label-md" id="formFeedback"></p>
+</form>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-section-gap border-t border-on-surface/10 bg-background dark:bg-background">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop gap-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface uppercase">AIZA SIDDIQUI</span>
+</div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary-container transition-colors duration-300" href="#home">HOME</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary-container transition-colors duration-300" href="#about">ABOUT</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary-container transition-colors duration-300" href="#skills">SKILLS</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary-container transition-colors duration-300" href="#projects">PROJECTS</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary-container transition-colors duration-300" href="#contact">CONTACT</a>
+</nav>
+<p class="text-on-surface-variant font-label-md text-label-md text-center md:text-right">
+            © 2024 AIZA SIDDIQUI. CRAFTED WITH PRECISION.
+        </p>
+</div>
+</footer>
+<script>
+    // Three.js Globe Animation
+    (function() {
+      const container = document.getElementById('threejs-container-hero-globe');
+      if (!container) return;
+
+      const width = container.clientWidth || window.innerWidth;
+      const height = container.clientHeight || window.innerHeight;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.IcosahedronGeometry(2.5, 2);
+      const material = new THREE.MeshPhongMaterial({
+        color: 0xefbe7b, 
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15,
+        emissive: 0x7b1e3b,
+        emissiveIntensity: 0.2
+      });
+
+      const globe = new THREE.Mesh(geometry, material);
+      scene.add(globe);
+
+      const pointsMaterial = new THREE.PointsMaterial({
+        color: 0xefbe7b,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.2
+      });
+      const globePoints = new THREE.Points(geometry, pointsMaterial);
+      globe.add(globePoints);
+
+      const light = new THREE.PointLight(0xffffff, 1, 100);
+      light.position.set(5, 5, 5);
+      scene.add(light);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+
+      camera.position.z = 5;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        globe.rotation.y += 0.002;
+        globe.rotation.x += 0.001;
+        renderer.render(scene, camera);
+      }
+
+      window.addEventListener('resize', () => {
+        const w = container.clientWidth || window.innerWidth;
+        const h = container.clientHeight || window.innerHeight;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      });
+
+      animate();
+    })();
+
+    // Carousel Logic
+    document.querySelectorAll('.carousel-track').forEach(track => {
+        const id = track.getAttribute('data-carousel-id');
+        const dots = document.querySelectorAll(`.dot-container[data-carousel-id="${id}"] .dot`);
+        
+        track.addEventListener('scroll', () => {
+            const index = Math.round(track.scrollLeft / track.clientWidth);
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        });
+
+        // Mouse Drag to Scroll
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+        });
+        track.addEventListener('mouseleave', () => { isDown = false; });
+        track.addEventListener('mouseup', () => { isDown = false; });
+        track.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 2;
+            track.scrollLeft = scrollLeft - walk;
+        });
+    });
+
+    // Typing Animation
+    const phrases = ["Web Developer", "Frontend Enthusiast", "UI/UX Designer", "Responsive Web Designer"];
+    let i = 0, j = 0, currentPhrase = "", isDeleting = false;
+    const typingSpeed = 100, deletingSpeed = 50;
+    const typingTextElement = document.getElementById("typing-text");
+
+    function type() {
+        const fullPhrase = phrases[i];
+        currentPhrase = isDeleting ? fullPhrase.substring(0, j - 1) : fullPhrase.substring(0, j + 1);
+        j = isDeleting ? j - 1 : j + 1;
+        typingTextElement.innerHTML = currentPhrase;
+
+        if (!isDeleting && j === fullPhrase.length) {
+            isDeleting = true;
+            setTimeout(type, 2000);
+        } else if (isDeleting && j === 0) {
+            isDeleting = false;
+            i = (i + 1) % phrases.length;
+            setTimeout(type, 500);
+        } else {
+            setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+        }
+    }
+    type();
+
+    // Scroll Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    function revealOnScroll() {
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) el.classList.add('active');
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Skill Bar Animation
+    const skillBars = document.querySelectorAll('.skill-bar');
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.getAttribute('data-target');
+            }
+        });
+    }, { threshold: 0.5 });
+    skillBars.forEach(bar => skillObserver.observe(bar));
+
+    // Form Validation
+    const contactForm = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        feedback.innerHTML = 'Sending message...';
+        feedback.className = 'block text-center font-label-md text-secondary mt-4';
+        setTimeout(() => {
+            feedback.innerHTML = 'Thank you! I will get back to you shortly.';
+            contactForm.reset();
+        }, 1500);
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+</body></html>
