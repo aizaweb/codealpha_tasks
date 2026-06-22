@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luxury Calculator | Precision Instruments</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&amp;family=Space+Grotesk:wght@300;400;500;700&amp;family=Geist:wght@100;300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#121414",
+                      "inverse-primary": "#695c55",
+                      "on-tertiary-container": "#4f3d00",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-primary-fixed": "#231914",
+                      "surface-container": "#1e2020",
+                      "on-secondary-container": "#342800",
+                      "on-secondary-fixed-variant": "#574500",
+                      "outline-variant": "#4e4540",
+                      "surface-tint": "#d5c3ba",
+                      "primary": "#d5c3ba",
+                      "inverse-surface": "#e2e2e2",
+                      "on-primary-container": "#8b7b74",
+                      "on-background": "#e2e2e2",
+                      "on-surface-variant": "#d1c4be",
+                      "secondary-container": "#af8d11",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#2f3131",
+                      "tertiary-container": "#c7a851",
+                      "on-tertiary": "#3d2f00",
+                      "primary-container": "#1b120d",
+                      "surface-container-low": "#1a1c1c",
+                      "on-primary-fixed-variant": "#51443e",
+                      "on-surface": "#e2e2e2",
+                      "secondary": "#e9c349",
+                      "secondary-fixed-dim": "#e9c349",
+                      "on-primary": "#392e28",
+                      "tertiary-fixed": "#ffe08d",
+                      "on-error": "#690005",
+                      "surface-bright": "#38393a",
+                      "primary-fixed-dim": "#d5c3ba",
+                      "surface-variant": "#333535",
+                      "on-secondary": "#3c2f00",
+                      "surface-container-high": "#282a2b",
+                      "tertiary-fixed-dim": "#e4c368",
+                      "on-secondary-fixed": "#241a00",
+                      "background": "#121414",
+                      "secondary-fixed": "#ffe088",
+                      "outline": "#9a8e89",
+                      "surface": "#121414",
+                      "on-tertiary-fixed-variant": "#584400",
+                      "on-tertiary-fixed": "#241a00",
+                      "tertiary": "#e4c469",
+                      "error": "#ffb4ab",
+                      "surface-container-highest": "#333535",
+                      "primary-fixed": "#f2dfd6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "button-height": "64px",
+                      "display-margin": "32px",
+                      "container-padding": "24px",
+                      "keypad-gap": "12px"
+              },
+              "fontFamily": {
+                      "button-label": ["Space Grotesk"],
+                      "headline-lg": ["Manrope"],
+                      "display-main-mobile": ["Geist"],
+                      "display-main": ["Geist"],
+                      "sub-label": ["Space Grotesk"],
+                      "body-md": ["Geist"]
+              },
+              "fontSize": {
+                      "button-label": ["18px", {"lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-main-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "300"}],
+                      "display-main": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                      "sub-label": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        :root {
+            --gold-glow: rgba(233, 195, 73, 0.4);
+            --gold-metallic: #D4AF37;
+        }
+
+        body {
+            background-color: #121414;
+            color: #e2e2e2;
+            overflow-x: hidden;
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(48px);
+            background: rgba(18, 20, 20, 0.45);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 12px 64px 0 rgba(0, 0, 0, 0.9);
+            animation: breathe-border 8s ease-in-out infinite, glow-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe-border {
+            0%, 100% { border-color: rgba(212, 175, 55, 0.15); }
+            50% { border-color: rgba(212, 175, 55, 0.5); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.3); }
+        }
+
+        .glass-aperture {
+            background: linear-gradient(135deg, rgba(30, 32, 32, 0.9) 0%, rgba(18, 20, 20, 0.95) 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-reflection {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.03) 55%, transparent 60%);
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        .precision-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, rgba(60, 55, 45, 0.9), rgba(26, 28, 28, 0.95));
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.4), inset -1px -1px 2px rgba(212,175,55,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            will-change: transform, box-shadow;
+        }
+
+        .precision-btn:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25), inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .precision-btn:active {
+            transform: scale(0.94);
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.5), inset 2px 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .operator-btn {
+            background: linear-gradient(145deg, rgba(175, 141, 17, 0.25), rgba(212, 175, 55, 0.1));
+            color: #D4AF37;
+            font-weight: 700;
+        }
+
+        .equal-btn {
+            background: linear-gradient(145deg, #D4AF37, #AF8D11);
+            color: #121414;
+            border: none;
+            font-weight: 800;
+        }
+
+        .equal-btn:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
+        }
+
+        .keypad-slider {
+            display: flex;
+            transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            width: 200%;
+            will-change: transform;
+        }
+
+        .keypad-page {
+            width: 50%;
+            flex-shrink: 0;
+        }
+
+        .floating-calc {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.5s ease-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes ripple-animation {
+            to { transform: scale(5); opacity: 0; }
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #D4AF37;
+            width: 32px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .premium-text {
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        #calcDisplay.result-pop {
+            animation: result-pop-anim 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes result-pop-anim {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.08); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .hidden-element {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        .visible-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Perspective for 3D feel */
+        .perspective-container {
+            perspective: 2000px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+<canvas id="bg-canvas"></canvas>
+<!-- Top Navigation -->
+<header class="w-full top-0 px-display-margin pt-8 z-50 backdrop-blur-md bg-surface/5 border-b border-secondary/10 flex justify-between items-center max-w-screen-2xl mx-auto fixed">
+<div class="font-headline-lg text-secondary tracking-[0.25em] uppercase premium-text">Luxury Calculator</div>
+<div class="flex items-center gap-6">
+<button class="p-2 text-secondary hover:scale-110 transition-all material-symbols-outlined" data-icon="palette" id="themeToggle"></button>
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:scale-110 transition-all material-symbols-outlined" data-icon="settings"></button>
+</div>
+</header>
+<main class="flex-grow w-full max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center justify-center px-display-margin pt-40 gap-16 pb-20 pointer-events-none">
+<!-- Hero Content -->
+<div class="flex-1 space-y-10 text-left max-w-lg animate-in fade-in duration-1000 slide-in-from-left-10 pointer-events-auto">
+<div class="space-y-4">
+<h1 class="font-headline-lg text-secondary text-5xl tracking-widest uppercase premium-text">Luxury Calculator</h1>
+<h2 class="text-3xl font-light text-on-surface-variant italic border-l-2 border-secondary/40 pl-6">Crafted with Precision</h2>
+</div>
+<p class="font-body-md text-on-surface-variant text-lg leading-relaxed opacity-80">
+            Engineered for professionals who demand sophistication. A premium scientific instrument combining glassmorphic elegance with ultimate mathematical accuracy.
+        </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<div class="px-5 py-2.5 border border-secondary/30 rounded-full font-sub-label text-secondary flex items-center gap-3 bg-secondary/5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="auto_awesome"></span>
+                Glassmorphic UI
+            </div>
+<div class="px-5 py-2.5 border border-secondary/30 rounded-full font-sub-label text-secondary flex items-center gap-3 bg-secondary/5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="functions"></span>
+                Scientific Precision
+            </div>
+</div>
+<!-- Greeting Widget -->
+<div class="p-8 glass-panel rounded-2xl border-secondary/20 flex items-center gap-6 transition-all duration-500 hover:bg-secondary/10" id="greetingWidget">
+<span class="material-symbols-outlined text-5xl text-secondary" id="greetingIcon">light_mode</span>
+<div>
+<h3 class="font-headline-lg text-2xl text-secondary" id="greetingText">Good Afternoon</h3>
+<p class="text-base text-outline">Welcome to your workspace.</p>
+</div>
+</div>
+</div>
+<!-- Calculator Interface - Centered and Enlarged -->
+<div class="flex-1 flex justify-center items-center w-full perspective-container pointer-events-auto">
+<div class="calculator-container w-full max-w-[480px] rounded-[64px] p-8 glass-panel border-secondary/20 relative floating-calc backdrop-blur-3xl">
+<!-- Screen/Aperture -->
+<div class="glass-aperture w-full rounded-[48px] h-64 p-10 flex flex-col justify-end items-end mb-8 shadow-inner relative">
+<div class="glass-reflection"></div>
+<!-- Expression Display -->
+<div class="text-outline font-body-md truncate max-w-full mb-3 h-8 text-xl transition-all duration-300" id="calcExpression"></div>
+<!-- Result Display -->
+<div class="font-display-main text-secondary drop-shadow-[0_0_20px_rgba(212,175,55,0.5)] truncate max-w-full text-7xl font-light" id="calcDisplay">0</div>
+</div>
+<!-- Swipe Indicator -->
+<div class="flex justify-center gap-4 mb-6">
+<div class="dot active transition-all duration-300" id="dot1"></div>
+<div class="dot transition-all duration-300" id="dot2"></div>
+</div>
+<!-- Keypad Area -->
+<div class="overflow-hidden cursor-grab active:cursor-grabbing select-none" id="keypadViewport">
+<div class="keypad-slider" id="keypadSlider">
+<!-- Page 1: Standard -->
+<div class="keypad-page grid grid-cols-4 gap-4 px-1">
+<button class="precision-btn rounded-3xl text-error font-button-label text-xl" onclick="clearDisplay()">AC</button>
+<button class="precision-btn rounded-3xl text-secondary font-button-label text-xl" onclick="backspace()">⌫</button>
+<button class="precision-btn rounded-3xl text-secondary font-button-label text-xl" onclick="input('%')">%</button>
+<button class="precision-btn rounded-3xl operator-btn font-button-label text-xl" onclick="input('/')">÷</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('7')">7</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('8')">8</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('9')">9</button>
+<button class="precision-btn rounded-3xl operator-btn font-button-label text-xl" onclick="input('*')">×</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('4')">4</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('5')">5</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('6')">6</button>
+<button class="precision-btn rounded-3xl operator-btn font-button-label text-xl" onclick="input('-')">-</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('1')">1</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('2')">2</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('3')">3</button>
+<button class="precision-btn rounded-3xl operator-btn font-button-label text-xl" onclick="input('+')">+</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('0')">0</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="input('.')">.</button>
+<button class="precision-btn rounded-3xl font-button-label text-xl" onclick="backspace()">⌫</button>
+<button class="precision-btn rounded-3xl equal-btn font-button-label text-xl" onclick="calculate()">=</button>
+</div>
+<!-- Page 2: Scientific -->
+<div class="keypad-page grid grid-cols-4 gap-4 px-1">
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('sin')">sin</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('cos')">cos</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('tan')">tan</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('log')">log</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('asin')">asin</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('acos')">acos</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('atan')">atan</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('ln')">ln</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('sqrt')">√</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('sq')">x²</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="input('**')">xʸ</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('pi')">π</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('e')">e</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="input('(')">(</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="input(')')">)</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('neg')">±</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('inv')">1/x</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('fact')">x!</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="input('%')">mod</button>
+<button class="precision-btn rounded-3xl text-secondary text-base font-button-label" onclick="scientific('exp')">exp</button>
+</div>
+</div>
+</div>
+<!-- Shadow Footprint -->
+<div class="absolute -bottom-16 left-1/2 -translate-x-1/2 w-4/5 h-6 bg-secondary/10 blur-2xl rounded-full"></div>
+</div>
+</div>
+</main>
+<footer class="w-full py-16 flex flex-col items-center justify-center gap-6 bg-transparent border-t border-secondary/10 mt-auto">
+<div class="font-sub-label tracking-[0.3em] uppercase mb-2 font-semibold text-2xl" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);">Aiza Siddiqui</div>
+<div class="flex gap-10">
+<a class="font-sub-label text-outline hover:text-secondary transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="font-sub-label text-outline hover:text-secondary transition-colors text-sm" href="#">Terms of Service</a>
+<a class="font-sub-label text-outline hover:text-secondary transition-colors text-sm" href="#">Support</a>
+</div>
+<p class="font-sub-label text-outline mt-4 opacity-60">© 2024 Precision Instruments. All rights reserved.</p>
+</footer>
+<script>
+    // --- WebGL Background Shader ---
+    const canvas = document.getElementById('bg-canvas');
+    const gl = canvas.getContext('webgl');
+
+    const vertexShaderSource = `
+        attribute vec2 position;
+        varying vec2 v_texCoord;
+        void main() {
+            v_texCoord = position * 0.5 + 0.5;
+            v_texCoord.y = 1.0 - v_texCoord.y;
+            gl_Position = vec4(position, 0.0, 1.0);
+        }
+    `;
+
+    const fragmentShaderSource = `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+
+        float noise(vec2 p) {
+            return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+        }
+
+        void main() {
+            vec2 uv = v_texCoord;
+            vec3 color = vec3(0.066, 0.043, 0.031); // #110B08 - Deep Espresso Base
+            
+            float d1 = length(uv - vec2(0.2, 0.8)) * 0.8;
+            float d2 = length(uv - vec2(0.8, 0.2)) * 0.8;
+            color += vec3(0.83, 0.68, 0.21) * 0.05 / (d1 + 0.5); 
+            color += vec3(0.9, 0.77, 0.41) * 0.03 / (d2 + 0.5); 
+            
+            for(float i = 0.0; i < 15.0; i++) {
+                float t = u_time * 0.1 + i * 1.5;
+                vec2 p = vec2(
+                    noise(vec2(i, 1.0)) + 0.2 * sin(t + i),
+                    mod(noise(vec2(i, 2.0)) - t * 0.2, 1.2) - 0.1
+                );
+                float size = 0.0015 * (1.0 + 0.5 * sin(t * 2.0));
+                float sparkle = 0.0008 / length(uv - p);
+                color += vec3(0.83, 0.68, 0.21) * sparkle * smoothstep(0.1, 0.0, length(uv - p) - size);
+            }
+            
+            float scan = sin(uv.x * 2.0 + uv.y * 1.5 + u_time * 0.5) * 0.5 + 0.5;
+            color += vec3(0.9, 0.77, 0.41) * 0.02 * scan;
+
+            gl_FragColor = vec4(color, 1.0);
+        }
+    `;
+
+    function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        return shader;
+    }
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vertexShaderSource));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+
+    const positionLocation = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    const timeLocation = gl.getUniformLocation(program, 'u_time');
+    const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function render(time) {
+        gl.uniform1f(timeLocation, time * 0.001);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+
+    // --- Calculator Logic ---
+    const display = document.getElementById('calcDisplay');
+    const expressionEl = document.getElementById('calcExpression');
+    let currentInput = '0';
+    let expression = '';
+    let isResultDisplayed = false;
+
+    function updateDisplay(isCalculating = false) {
+        if (isCalculating) {
+            expressionEl.classList.add('opacity-0', 'scale-95');
+            display.classList.add('result-pop');
+            display.innerText = currentInput;
+            setTimeout(() => {
+                expressionEl.innerText = '';
+                expressionEl.classList.remove('opacity-0', 'scale-95');
+                display.classList.remove('result-pop');
+            }, 300);
+        } else {
+            display.innerText = currentInput;
+            expressionEl.innerText = expression;
+            expressionEl.classList.add('visible-element');
+        }
+    }
+
+    function input(char) {
+        if (isResultDisplayed) {
+            if (['+', '-', '*', '/', '%', '**'].includes(char)) {
+                expression = currentInput;
+            } else {
+                currentInput = '0';
+                expression = '';
+            }
+            isResultDisplayed = false;
+        }
+
+        if (currentInput === '0' && !['.', '+', '-', '*', '/', '%', '**'].includes(char)) {
+            currentInput = char;
+        } else {
+            currentInput += char;
+        }
+        expression += char;
+        updateDisplay();
+    }
+
+    function clearDisplay() {
+        currentInput = '0';
+        expression = '';
+        isResultDisplayed = false;
+        updateDisplay();
+    }
+
+    function backspace() {
+        if (currentInput.length > 1) {
+            currentInput = currentInput.slice(0, -1);
+            expression = expression.slice(0, -1);
+        } else {
+            currentInput = '0';
+            expression = '';
+        }
+        updateDisplay();
+    }
+
+    function calculate() {
+        try {
+            let res = eval(expression.replace(/×/g, '*').replace(/÷/g, '/'));
+            currentInput = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
+            isResultDisplayed = true;
+            updateDisplay(true);
+        } catch (e) {
+            currentInput = 'Error';
+            updateDisplay();
+            setTimeout(clearDisplay, 1500);
+        }
+    }
+
+    function scientific(func) {
+        let val = parseFloat(currentInput);
+        let result;
+        switch(func) {
+            case 'sin': result = Math.sin(val); break;
+            case 'cos': result = Math.cos(val); break;
+            case 'tan': result = Math.tan(val); break;
+            case 'asin': result = Math.asin(val); break;
+            case 'acos': result = Math.acos(val); break;
+            case 'atan': result = Math.atan(val); break;
+            case 'log': result = Math.log10(val); break;
+            case 'ln': result = Math.log(val); break;
+            case 'sqrt': result = Math.sqrt(val); break;
+            case 'sq': result = val * val; break;
+            case 'pi': result = Math.PI; break;
+            case 'e': result = Math.E; break;
+            case 'neg': result = -val; break;
+            case 'inv': result = 1/val; break;
+            case 'exp': result = Math.exp(val); break;
+            case 'fact': 
+                const f = (n) => n <= 1 ? 1 : n * f(n - 1);
+                result = f(val);
+                break;
+        }
+        currentInput = parseFloat(result.toFixed(8)).toString();
+        expression = currentInput;
+        isResultDisplayed = true;
+        updateDisplay(true);
+    }
+
+    // --- Swipe Navigation Logic ---
+    const slider = document.getElementById('keypadSlider');
+    const dots = [document.getElementById('dot1'), document.getElementById('dot2')];
+    let startX, isDragging = false;
+    let currentIndex = 0;
+
+    function setSliderPosition() {
+        slider.style.transform = `translateX(-${currentIndex * 50}%)`;
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX;
+        slider.style.transition = 'none';
+    });
+
+    window.addEventListener('mouseup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const endX = e.pageX;
+        const threshold = 70;
+        if (startX - endX > threshold && currentIndex === 0) currentIndex = 1;
+        else if (endX - startX > threshold && currentIndex === 1) currentIndex = 0;
+        slider.style.transition = 'transform 0.3s cubic-bezier(0.65, 0, 0.35, 1)';
+        setSliderPosition();
+    });
+
+    slider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        slider.style.transition = 'none';
+    });
+
+    slider.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const threshold = 70;
+        if (startX - endX > threshold && currentIndex === 0) currentIndex = 1;
+        else if (endX - startX > threshold && currentIndex === 1) currentIndex = 0;
+        slider.style.transition = 'transform 0.3s cubic-bezier(0.65, 0, 0.35, 1)';
+        setSliderPosition();
+    });
+
+    // --- Theme Toggle ---
+    let currentTheme = 'gold';
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+        if (currentTheme === 'gold') {
+            document.documentElement.style.setProperty('--gold-glow', 'rgba(213, 195, 186, 0.4)');
+            currentTheme = 'platinum';
+            themeBtn.classList.add('rotate-180');
+        } else {
+            document.documentElement.style.setProperty('--gold-glow', 'rgba(233, 195, 73, 0.4)');
+            currentTheme = 'gold';
+            themeBtn.classList.remove('rotate-180');
+        }
+    });
+
+    // --- Greeting Logic ---
+    function setGreeting() {
+        const hour = new Date().getHours();
+        const greetingText = document.getElementById('greetingText');
+        const greetingIcon = document.getElementById('greetingIcon');
+        
+        if (hour < 12) {
+            greetingText.innerText = 'Good Morning';
+            greetingIcon.innerText = 'wb_sunny';
+        } else if (hour < 18) {
+            greetingText.innerText = 'Good Afternoon';
+            greetingIcon.innerText = 'light_mode';
+        } else {
+            greetingText.innerText = 'Good Evening';
+            greetingIcon.innerText = 'dark_mode';
+        }
+    }
+    setGreeting();
+
+    // --- Button Ripple Effect ---
+    document.querySelectorAll('.precision-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let rect = this.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+            let ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        });
+    });
+
+    // --- Keyboard Support ---
+    window.addEventListener('keydown', (e) => {
+        const key = e.key;
+        if (!isNaN(key) || ['+', '-', '*', '/', '.', '(', ')', '%'].includes(key)) input(key);
+        if (key === 'Enter') { e.preventDefault(); calculate(); }
+        if (key === 'Backspace') backspace();
+        if (key === 'Escape') clearDisplay();
+    });
+</script>
+</body></html>
